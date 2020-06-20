@@ -1,4 +1,8 @@
 {
   "jwtPrivateKey": "",
-  "db": "mongodb://192.168.0.36:27017/vidly"
+  "db": "mongodb://192.168.0.36:27017/vidly",
+  "msdb_server": "192.168.0.36",
+  "msdb_database": "animalhaven",
+  "msdb_user": "tomio",
+  "msdb_password": "98819881"
 }
