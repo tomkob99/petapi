@@ -6,7 +6,9 @@ const customers = require('../routes/customers');
 const movies = require('../routes/movies');
 const rentals = require('../routes/rentals');
 const users = require('../routes/users');
+const useras = require('../routes/useras');
 const auth = require('../routes/auth');
+const autha = require('../routes/autha');
 const returns = require('../routes/returns');
 const species = require('../routes/species');
 
@@ -18,7 +20,9 @@ module.exports = function(app) {
   app.use('/api/rentals', rentals);
   app.use('/api/users', users);
   app.use('/api/auth', auth);
+  app.use('/api/autha', autha);
   app.use('/api/returns', returns);
   app.use('/api/species', species);
+  app.use('/api/useras', useras);
   app.use(expressErr);
 }
