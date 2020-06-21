@@ -8,14 +8,13 @@ const db = require('../startup/db');
 const config = require('../startup/config');
 const router = express.Router();
 
-
 // router.get('/', asyncMiddleware(async (req, res) => {
-router.get('/', async (req, res) => {
-
+router.get('/', auth, async (req, res) => {
 
   var param = [];
   let conn = db.conMySQL;
-  conn.query('SELECT * FROM Species;', function (err, rows, fields) {
+  console.log(req.user);
+  conn.query('SELECT * FROM Species', function (err, rows, fields) {
     if(err) {
       return res.json({"Error" : true, "Message" : "Error executing MySQL query"});
     } else {
@@ -23,7 +22,7 @@ router.get('/', async (req, res) => {
     }
   });
 });
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
 
   let conn = db.conMySQL;
 
@@ -41,6 +40,24 @@ router.get('/:id', async (req, res) => {
   });
 });
 
+router.post('/', auth, async (req, res) => {
+
+  let conn = db.conMySQL;
+  // console.log(req.body);
+
+  const param = {species_name: req.body.species_name,capacity: req.body.capacity};
+  // console.log(param);
+  const { error } = validate(param); 
+  if (error) return res.status(400).send(error.details[0].message);
+
+  conn.query("insert into Species set ?", param, function(err,results,fields){
+    if(err) {
+      return res.status(501).send({"Error" : true, "Message" : "Error executing MySQL query"});
+    } else {
+      return res.send(param);
+    }
+  });
+});
 
 
 
